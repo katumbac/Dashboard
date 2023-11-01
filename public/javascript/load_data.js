@@ -42,7 +42,7 @@ let cargarPrecipitacion = () => {
   
 cargarPrecipitacion()
 
-  let cargarFechaActual = () => {
+let cargarFechaActual = () => {
   
     //Obtenga la referencia al elemento h6
     let coleccionHTML = document.getElementsByTagName("h6")
@@ -54,3 +54,76 @@ cargarPrecipitacion()
 }
   
 cargarFechaActual()
+
+let cargarOpenMeteo = () => {
+
+  //URL que responde con la respuesta a cargar
+  let URL = 'https://api.open-meteo.com/v1/forecast?latitude=-2.1962&longitude=-79.8862&hourly=temperature_2m,uv_index,cape&timezone=auto'; 
+
+  fetch( URL )
+    .then(responseText => responseText.json())
+    .then(responseJSON => {
+      
+      console.log(responseJSON);     
+      //Respuesta en formato JSON
+      //Referencia al elemento con el identificador plot
+      let plotRef = document.getElementById('plot1');
+
+      //Etiquetas del gráfico
+      let labels = responseJSON.hourly.time;
+
+      //Etiquetas de los datos
+      let data = responseJSON.hourly.temperature_2m;
+      let data1 = responseJSON.hourly.uv_index;
+      //Objeto de configuración del gráfico
+      let config = {
+        type: 'line',  
+        data: {
+          labels: labels, 
+          datasets: [
+            {
+              label: 'Temperature [2m]',
+              data: data, 
+              borderColor: '#FF6382',
+              backgroundColor: '#FFE4C4',
+            },
+            {
+              label: 'UV Index',
+              data: data1, 
+              borderColor: '#0000FF',
+              backgroundColor: '#87CEFA',
+            }
+          ]
+        }
+      };
+
+      //Objeto con la instanciación del gráfico
+      let chart1  = new Chart(plotRef, config);
+  
+      //plot2
+      let plotRef2 = document.getElementById('plot2');
+      let data2 = responseJSON.hourly.cape;
+      let config2 = {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Cape',
+              data: data2,
+              borderColor: '#32CD32',
+              backgroundColor: '#98FB98',
+            }
+          ]
+        }
+      };
+      let chart2  = new Chart(plotRef2, config2);
+
+    })
+    .catch(console.error);
+
+}
+
+cargarPrecipitacion()
+cargarFechaActual()
+cargarOpenMeteo()
