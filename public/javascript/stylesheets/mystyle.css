@@ -109,6 +109,10 @@ h5{
 
 /*Gráficos*/
 
+#grafico{
+   display: flex;
+   flex-direction: row; 
+}
 #grafico .container{
     display: flex;
     flex-direction: row;
@@ -117,6 +121,7 @@ h5{
 
 #cardplot1 ,#cardplot2, .card{
     flex-basis: 49%;
+    margin: 10px;
 
 }
 
@@ -145,5 +150,17 @@ table.default tr:not(:nth-child(1)):not(:nth-child(2)) {
         color: var(--white);
     }
 
+    #grafico{
+        display: flex;
+        flex-direction: column; 
+    }
 
+    #grafico .container{
+        display: flex;
+        flex-direction: column;
+    }
+    #cardplot1 ,#cardplot2, .card{
+        flex-basis: 80%;
+        height: 60% ;
+    }
 }

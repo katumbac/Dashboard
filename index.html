@@ -67,8 +67,7 @@
         <section class="p-4 text-right bg-light">
             <h4 id="indicadores" class="mb-3">
                 Indicadores 
-            </h4>
-            
+            </h4>           
             <h6 class="mb-3">YYYY-MM-DD</h6>
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
@@ -88,19 +87,6 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <i class='fas fa-cloud-rain' id="iconnhume"></i>
-                                <h5 class="card-title">Humedad Guayaquil</h5>
-                                <p class="card-text">
-                                    <ul class="list-group list-group-light">
-                                        <li id="humedadGyq" class="list-group-item">Humedad 0.0 [%]</li>
-                                    </ul>  
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
                                 <i class='fas fa-temperature-high' id="iconntemp"></i>
                                 <h5 class="card-title">Temperatura Guayaquil</h5>
                                 <p class="card-text">
@@ -111,6 +97,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class='fas fa-cloud-rain' id="iconnhume"></i>
+                                <h5 class="card-title">Humedad Guayaquil</h5>
+                                <p class="card-text">
+                                    <ul class="list-group list-group-light">
+                                        <li id="humedadGyq" class="list-group-item">Humedad 0.0 [%]</li>
+                                    </ul>  
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!--  
                     <div class="col">
                         <div class="card">
@@ -196,7 +196,7 @@
 
                 <div
                     class="row justify-content-end row-cols-6 row-cols-md-6 g-3 mt-2">
-
+                    <h4 id="datos">  Ciudad:  </h4>
                     <div class="col">
                         <select class="form-select form-select-lg mb-3"
                             aria-label="Default select example">
