@@ -6,6 +6,7 @@
             content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <title>Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="public/javascript/stylesheets/mystyle.css">
 
         <!-- Font Awesome -->
         <link
@@ -20,12 +21,14 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
             rel="stylesheet" />
 
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
     </head>
     <body>
 
         <header>
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
                     <button
                         class="navbar-toggler"
@@ -48,12 +51,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#datos">Datos</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#monitoreo">Mapa de monitoreo</a>
+                            </li>
 
                         </ul>
                     </div>
                 </div>
             </nav>
             <!-- Navbar -->
+            <i class='fas fa-cloud-sun' id="clima"> Climate Dashboard</i>
         </header>
 
         <!-- Indicadores -->
@@ -61,9 +68,50 @@
             <h4 id="indicadores" class="mb-3">
                 Indicadores 
             </h4>
+            
             <h6 class="mb-3">YYYY-MM-DD</h6>
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-3 g-3 mt-2">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class='fas fa-cloud-showers-heavy' id="iconn"></i>
+                                <h5 class="card-title">Precipitación Guayaquil</h5>
+                                <p class="card-text">
+                                    <ul class="list-group list-group-light">
+                                        <li id="precipitacionGyq" class="list-group-item">Probability Max 0.0</li>
+                                    </ul>  
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class='fas fa-cloud-rain' id="iconnhume"></i>
+                                <h5 class="card-title">Humedad Guayaquil</h5>
+                                <p class="card-text">
+                                    <ul class="list-group list-group-light">
+                                        <li id="humedadGyq" class="list-group-item">Humedad 0.0 [%]</li>
+                                    </ul>  
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class='fas fa-temperature-high' id="iconntemp"></i>
+                                <h5 class="card-title">Temperatura Guayaquil</h5>
+                                <p class="card-text">
+                                    <ul class="list-group list-group-light">
+                                        <li id="temperaturaGyq" class="list-group-item">Temperatura Max 0.0 [°C]</li>
+                                    </ul>  
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
@@ -106,6 +154,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
         </section>
@@ -116,16 +165,23 @@
             <h4 id="graficos" class="mb-3">
                 Gráficos
             </h4>
-            <div class="container">
-                <div
-                    class="row d-flex justify-content-center row-cols-1 row-cols-md-1 g-4 mt-2">
-                    <div class="col">
-                        <canvas id="plot1"></canvas>
-                    </div>
-                    <div class="col">
-                        <canvas id="plot2"></canvas>
-                    </div>
+            <div class="container" id="grafico">
+                <div class="card" id="cardplot1">
+                    <div class="row d-flex justify-content-center row-cols-1 row-cols-md-1 g-4 mt-2" ></div>
+                        <div class="card-body">
+                            <div class="col">
+                                <canvas id="plot1"></canvas>
+                            </div>
+                        </div>
                 </div>
+                <div class="card" id="cardplot2">
+                    <div class="row d-flex justify-content-center row-cols-1 row-cols-md-1 g-4 mt-2" ></div>
+                        <div class="card-body">
+                            <div class="col">
+                                <canvas id="plot2"></canvas>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </section>
         <!-- Gráficos -->
@@ -183,6 +239,25 @@
             </div>
         </section>
         <!-- Datos -->
+
+         <!-- Tabla de mareas -->
+        <section class="p-4 text-right bg-light">
+            <h4 class="mb-3">
+                Mapa de monitoreo de amenaza de inundaciones bajo pronóstico de precipitaciones
+            </h4>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-1 g-3 mt-2">
+                    <div class="col">
+                        <div class="card">
+                            <div id="monitoreo" class="card-body">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Tabla de mareas -->
 
         <!-- MDB -->
         <script

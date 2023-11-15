@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    scroll-margin-top: 100px;
+}
+
+:root{
+    --fondo  : #00ff99; 
+    --white : #ffffff;
+    --gris : #4b4b4b;
+    --blue : #78a2dd; 
+    --bl : #0761df;
+    --orange : #f5841a;
+}
+
+header{
+    height: 100px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 5%;
+    align-items: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    background-color:var(--blue);
+    letter-spacing: .2rem;
+    z-index: 1000;
+}
+
+nav {
+    width: 50%;
+    background-color: var(--white);
+    padding: 10px;
+    font-size: 10px;
+    line-height: 1;
+    color: var(--bl);
+    transition: 0.5;
+}
+
+.navbar{
+    flex-basis: 69% ;
+    list-style-type: none;
+    border-radius: 15px;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.navbar a {
+    font-size: 15px;
+    text-decoration:none;
+    color: var(--color2);
+}
+
+header i{
+    display: flex;
+    flex-basis: 5%;
+}
+
+/*Indicadores*/
+
+#clima{
+    font-size: 26px;
+    color: var(--white);
+}
+
+h4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold
+}
+
+h6{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+h5{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.card-body i{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-bottom: 10px;
+}
+
+#precipitacionGyq, #humedadGyq, #temperaturaGyq{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+#iconn, #iconnhume{
+    font-size: 50px;
+    color: var(--blue);
+}
+
+#iconntemp{
+    font-size: 50px;
+    color: var(--orange);
+}
+
+/*Gráficos*/
+
+#grafico .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#cardplot1 ,#cardplot2, .card{
+    flex-basis: 49%;
+
+}
+
+table.default tr:not(:nth-child(1)):not(:nth-child(2)) {
+    display: none;
+}  
+
+
+
+@media screen and (max-width: 576px) {
+
+    header{
+        display: flex;
+    }
+    .navbar{
+        flex-basis: 10% ;
+        border-radius: 15px;
+        list-style-type: none;
+        width: 100%;
+        justify-content: space-between;
+        font-size: 1rem;
+    }
+
+    #clima{
+        font-size: 26px;
+        color: var(--white);
+    }
+
+
+}

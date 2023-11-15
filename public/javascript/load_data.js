@@ -1,6 +1,7 @@
 import {tiempoArr, precipitacionArr, uvArr, temperaturaArr} from './static_data.js';
 
 let fechaActual = () => new Date().toISOString().slice(0,10);
+let URLs = 'https://api.open-meteo.com/v1/forecast?latitude=-2.1962&longitude=-79.8862&hourly=temperature_2m,uv_index,cape&timezone=auto'; 
 
 let cargarPrecipitacion = () => {
 
@@ -8,23 +9,24 @@ let cargarPrecipitacion = () => {
     let actual = fechaActual();
 
     //Defina un arreglo temporal vacío
-    let datos = []
+    let datospre = []
 
     //Itere en el arreglo tiempoArr para filtrar los valores de precipitacionArr que sean igual con la fecha actual
     for (let index = 0; index < tiempoArr.length; index++) {
         const tiempo = tiempoArr[index];
         const precipitacion = precipitacionArr[index]
-    
+        const temperatura = temperaturaArr[index]
+
         if(tiempo.includes(actual)) {
-          datos.push(precipitacion)
+          datospre.push(precipitacion)
         }
-      }
+    }
 
     //Con los valores filtrados, obtenga los valores máximo, promedio y mínimo
-    let max = Math.max(...datos)
-    let min = Math.min(...datos)
-    let sum = datos.reduce((a, b) => a + b, 0);
-    let prom = (sum / datos.length) || 0;
+    let max = Math.max(...datospre)
+    let min = Math.min(...datospre)
+    let sum = datospre.reduce((a, b) => a + b, 0);
+    let prom = (sum / datospre.length) || 0;
 
     //Obtenga la referencia a los elementos HTML con id precipitacionMinValue, precipitacionPromValue y precipitacionMaxValue
     let precipitacionMinValue = document.getElementById("precipitacionMinValue")
@@ -32,15 +34,109 @@ let cargarPrecipitacion = () => {
     let precipitacionMaxValue = document.getElementById("precipitacionMaxValue")
 
     //Actualice los elementos HTML con los valores correspondientes
-
-    //Actualice los elementos HTML con los valores correspondientes
     precipitacionMinValue.textContent = `Min ${min} [mm]`
     precipitacionPromValue.textContent = `Prom ${ Math.round(prom * 100) / 100 } [mm]`
     precipitacionMaxValue.textContent = `Max ${max} [mm]`
+}
 
- }
+let cargarUv = () => {
+  let actual = fechaActual();
+  let datosuv = []
+  for (let index = 0; index < tiempoArr.length; index++) {
+    const tiempo = tiempoArr[index];
+    const uv = uvArr[index]
+
+    if(tiempo.includes(actual)) {
+      datosuv.push(uv)
+    }
+  }
+
+  let maxuv = Math.max(...datosuv)
+  let minuv = Math.min(...datosuv)
+  let sumuv = datosuv.reduce((a, b) => a + b, 0);
+  let promuv = (sumuv / datosuv.length) || 0;
+
+  let uvMinValue = document.getElementById("uvMinValue")
+  let uvPromValue = document.getElementById("uvPromValue")
+  let uvMaxValue = document.getElementById("uvMaxValue")
+
+  uvMinValue.textContent = `Min ${minuv} [--]`
+  uvPromValue.textContent = `Prom ${ Math.round(promuv * 100) / 100 } [--]`
+  uvMaxValue.textContent = `Max ${maxuv} [--]`
+}
+
+let cargartemperatura = () => {
+  let actual = fechaActual();
+  let datostemp = []
+
+  for (let index = 0; index < tiempoArr.length; index++) {
+    const tiempo = tiempoArr[index];
+    const temperatura = temperaturaArr[index]
+
+    if(tiempo.includes(actual)) {
+      datostemp.push(temperatura)
+    }
+  }
+
+  let maxtemp = Math.max(...datostemp)
+  let mintemp = Math.min(...datostemp)
+  let sumtemp = datostemp.reduce((a, b) => a + b, 0);
+  let promtemp = (sumtemp / datostemp.length) || 0;
+
+  let temperaturaMinValue = document.getElementById("temperaturaMinValue")
+  let temperaturaPromValue = document.getElementById("temperaturaPromValue")
+  let temperaturaMaxValue = document.getElementById("temperaturaMaxValue")
+
+  temperaturaMinValue.textContent = `Min ${mintemp} [°C]`
+  temperaturaPromValue.textContent = `Prom ${ Math.round(promtemp * 100) / 100 } [°C]` 
+  temperaturaMaxValue.textContent = `Max ${maxtemp} [°C]`
+}
+//cargarPrecipitacion()
+//cargarUv()
+//cargartemperatura()
+
+let cargarDatosGuayaquil = async () =>{
+
+  let actual = fechaActual();
+  let APIkey = '56ee2c0628fa32e2142831cdfcfdabf8'
+  let url = `https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&mode=xml&appid=${APIkey}`
   
-cargarPrecipitacion()
+  let response = await fetch(url)
+  let responseText = await response.text()
+  
+  // Parsing XML
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(responseText, "application/xml");
+  let timeArr = xml.querySelectorAll("time")
+
+  let datosprecipitation = []
+  let datoshumedad= []
+  let datostemperaturamax = []
+
+  let precipitacionGyq = document.getElementById("precipitacionGyq")
+  let humedadGyq = document.getElementById("humedadGyq")
+  let temperaturaGyq = document.getElementById("temperaturaGyq")
+  timeArr.forEach((time,index) => {
+      let precipitation = time.querySelector("precipitation").getAttribute("probability")
+      let humedad = time.querySelector("humidity").getAttribute("value")
+      let temperaturamax = time.querySelector("temperature").getAttribute("max")
+
+      datosprecipitation.push(precipitation)
+      datoshumedad.push(humedad)
+      datostemperaturamax.push(temperaturamax)
+
+  })
+
+  let max = Math.max(...datosprecipitation)
+  precipitacionGyq.textContent = `Probability Max ${max}`
+
+  let humedadmax = Math.max(...datoshumedad)
+  humedadGyq.textContent = `Humedad ${humedadmax} [%]`
+
+  let temperaturamax = Math.max(...datostemperaturamax)
+  temperaturaGyq.textContent = `Temperatura Max ${temperaturamax} [°K]`
+}
+
 
 let cargarFechaActual = () => {
   
@@ -52,8 +148,8 @@ let cargarFechaActual = () => {
     //Actualice la referencia al elemento h6 con el valor de la función fechaActual()
     tituloH6.textContent = fechaActual()
 }
-  
-cargarFechaActual()
+
+
 
 let cargarOpenMeteo = () => {
 
@@ -72,7 +168,7 @@ let cargarOpenMeteo = () => {
       //Etiquetas del gráfico
       let labels = responseJSON.hourly.time;
 
-      //Etiquetas de los datos
+      //Etiquetas de los datospre
       let data = responseJSON.hourly.temperature_2m;
       let data1 = responseJSON.hourly.uv_index;
       //Objeto de configuración del gráfico
@@ -124,7 +220,8 @@ let cargarOpenMeteo = () => {
 
 }
 
-cargarPrecipitacion()
+cargarDatosGuayaquil()
+//cargarPrecipitacion()
 cargarFechaActual()
 cargarOpenMeteo()
 
@@ -209,3 +306,24 @@ let loadForecastByCity = () => {
 }
 
 loadForecastByCity()
+
+
+//seccion gestion de riesgos
+let loadExternalTable = async ()=> {
+  //Requerimiento asíncrono
+  console.log("Gestión de riesgo")
+
+  let proxy = 'https://cors-anywhere.herokuapp.com/'
+  let url = proxy + 'https://www.gestionderiesgos.gob.ec/monitoreo-de-inundaciones/'
+
+  let response = await fetch(url)
+  let responseText = await response.text()
+
+  const parser = await new DOMParser();
+  const xml = await parser.parseFromString(responseText, "text/html");
+
+  let table = await xml.querySelector("#postcontent table")
+  document.getElementById("monitoreo").innerHTML = table.outerHTML
+}
+
+loadExternalTable()
