@@ -191,6 +191,7 @@ let cargarOpenMeteo = () => {
             }
           ]
         }
+        
       };
 
       //Objeto con la instanciación del gráfico
@@ -200,7 +201,7 @@ let cargarOpenMeteo = () => {
       let plotRef2 = document.getElementById('plot2');
       let data2 = responseJSON.hourly.cape;
       let config2 = {
-        type: 'bar',
+        type: 'line',
         data: {
           labels: labels,
           datasets: [

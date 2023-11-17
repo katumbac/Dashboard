@@ -133,9 +133,6 @@ table.default tr:not(:nth-child(1)):not(:nth-child(2)) {
 
 @media screen and (max-width: 576px) {
 
-    header{
-        display: flex;
-    }
     .navbar{
         flex-basis: 10% ;
         border-radius: 15px;
@@ -150,5 +147,14 @@ table.default tr:not(:nth-child(1)):not(:nth-child(2)) {
         color: var(--white);
     }
 
+    #grafico{
+        display: flex;
+        flex-direction: column; 
+    }
+    #grafico .container{
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+    }
 
 }
